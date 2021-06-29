@@ -10,6 +10,7 @@ public:
 	static void FromActionsToIds(vector<SAction>& Actions, vector<SAction>& ActionIds);
 	static void FromIdsToActions(vector<SAction>& Actions, vector<SAction>& ActionIds);
 public:
+	virtual int GetIntQvalueOf(CChess* Chess) { return 0; };
 	virtual float GetQvalueOf(CChess* Chess) { return 0; };
 	virtual void Inference(CChess* Chess, vector<SAction>& Actions, vector<float>& Predicts, float& QValue) = 0;
 };
@@ -23,6 +24,7 @@ public:
 class CSimpleInferencer : public CInferencer
 {
 public:
+	virtual int GetIntQvalueOf(CChess* Chess);
 	virtual float GetQvalueOf(CChess* Chess);
 	virtual void Inference(CChess* Chess, vector<SAction>& Actions, vector<float>& Predicts, float& QValue) override;
 };

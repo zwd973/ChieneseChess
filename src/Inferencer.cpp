@@ -1,6 +1,20 @@
 #include "Inferencer.h"
 #include "ChinaChess.h"
 
+int CSimpleInferencer::GetIntQvalueOf(CChess* Chess)
+{
+	static const int ValuesOfPieces[] = { 0,100,3,3,5,10,60,3,-100,-3,-3,-5,-10,-60,-3 };
+	int Qvalue = 0;
+	for (int i = 0; i < CChess::H; i++)
+	{
+		for (int j = 0; j < CChess::W; j++)
+		{
+			Qvalue += ValuesOfPieces[TFPieceTo<int>(Chess->PieceAt(i, j))];
+		}
+	}
+	return Qvalue;
+}
+
 float CSimpleInferencer::GetQvalueOf(CChess* Chess)
 {
 	// {' ','k','g','e','h','r','c','p','K','G','E','H','R','C','P'}

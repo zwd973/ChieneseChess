@@ -25,7 +25,7 @@ void CTreeNode::InitNode()
 	Scores.resize(Actions.size());
 	for (size_t i = 0;i<Scores.size();i++)
 	{
-		Scores[i] = (Predicts[i] + 1.0);
+		Scores[i] = (Predicts[i] + 1.0f);
 	}
 	Qvalues.resize(Actions.size());
 	VisitCnts.resize(Actions.size());
@@ -34,7 +34,7 @@ void CTreeNode::InitNode()
 
 int CTreeNode::SelectNextActionId()
 {
-	return max_element(Scores.begin(),Scores.end()) - Scores.begin();
+	return static_cast<int>(max_element(Scores.begin(),Scores.end()) - Scores.begin());
 }
 
 void CTreeNode::VisitActionAt(int Index)
@@ -63,7 +63,7 @@ void CTreeNode::BackwardActionStep(int Index, float Qvalue)
 	{
 		Q = Qvalues[Index] / VisitCnts[Index] * Alpha;
 	}
-	U = Beta * (Predicts[Index] + 1.0) / (1 + pow(VisitCnts[Index], Gamma));
+	U = Beta * (Predicts[Index] + 1.0f) / (1.0f + static_cast<float>((static_cast<double>(VisitCnts[Index]), Gamma)));
 	Scores[Index] = Q + U;
 	// to update scores;
 }
@@ -165,13 +165,13 @@ void CTreeSearchSolver::Solve(CChess* Chess, vector<SAction>& Actions, vector<fl
 	vector<int> Indexs(CurActions.size());
 	for (size_t i = 0; i < Indexs.size(); i++)
 	{
-		Indexs[i] = i;
+		Indexs[i] = static_cast<int>(i);
 	}
 	sort(Indexs.begin(), Indexs.end(), Comp);
 	Scores.resize(Indexs.size());
 	Actions.resize(Indexs.size());
 	VisitCnts.resize(Indexs.size());
-	for (int i = 0; i < Indexs.size(); i++)
+	for (size_t i = 0; i < Indexs.size(); i++)
 	{
 		Scores[i] = static_cast<float>(RootVisitCnts[Indexs[i]]) / N;
 		Actions[i] = CurActions[Indexs[i]];

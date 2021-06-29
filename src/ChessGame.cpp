@@ -89,7 +89,7 @@ SAction CChessGameAVA::SelectActionForAgent(CChess* Chess,CAgent* Agent)
 	HistoryActions.push_back(Actions);
 
 	vector<bool> Mask(Actions.size(),true);
-	static default_random_engine generator(time(NULL));
+	static default_random_engine generator(static_cast<uint32>(time(NULL)));
 	size_t Cnt = Actions.size();
 	float S = 1.0f;
 	while (true)

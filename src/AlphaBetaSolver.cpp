@@ -25,11 +25,11 @@ void CAlphaBetaSolver::AlphaBetaSearchCore(CChess* Chess, int Alpha, int Beta, i
 	vector<int> Indexs(Actions.size());
 	for (size_t i = 0; i < Indexs.size(); i++)
 	{
-		Indexs[i] = i;
+		Indexs[i] = static_cast<int>(i);
 	}
 	if (Deep <= 0)
 	{
-		Qvalue = Inferencer->GetQvalueOf(Chess);
+		Qvalue = Inferencer->GetIntQvalueOf(Chess);
 		return;
 	}
 	Inferencer->Inference(Chess, Actions, Predicts, PreQvalue);
@@ -67,7 +67,7 @@ void CAlphaBetaSolver::Solve(CChess* Chess, vector<SAction>& Actions, vector<flo
 	vector<int> Indexs(CurActions.size());
 	for (size_t i = 0; i < Indexs.size(); i++)
 	{
-		Indexs[i] = i;
+		Indexs[i] = static_cast<int>(i);
 	}
 	Inferencer->Inference(Chess, CurActions, Predicts, PreQvalue);
 	auto Comp = [&Predicts](int l, int r) {
@@ -84,7 +84,7 @@ void CAlphaBetaSolver::Solve(CChess* Chess, vector<SAction>& Actions, vector<flo
 		int Qvalue;
 		AlphaBetaSearchCore(Chess, MIN_BOUND, MAX_BOUND, Qvalue, Deep);
 		Qvalue = -Qvalue;
-		CurScores[Index] = Qvalue;
+		CurScores[Index] = static_cast<float>(Qvalue);
 		Chess->RevertBoard();
 		Chess->RevertAction(Action, TargetPiece);
 	}
