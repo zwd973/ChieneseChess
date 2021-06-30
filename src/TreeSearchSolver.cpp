@@ -63,7 +63,7 @@ void CTreeNode::BackwardActionStep(int Index, float Qvalue)
 	{
 		Q = Qvalues[Index] / VisitCnts[Index] * Alpha;
 	}
-	U = Beta * (Predicts[Index] + 1.0f) / (1.0f + static_cast<float>((static_cast<double>(VisitCnts[Index]), Gamma)));
+	U = Beta * (Predicts[Index] + 1.0f) / (1.0f + static_cast<float>(pow(static_cast<double>(VisitCnts[Index]), Gamma)));
 	Scores[Index] = Q + U;
 	// to update scores;
 }
@@ -133,7 +133,6 @@ void CTreeSearchSolver::Solve(CChess* Chess, vector<SAction>& Actions, vector<fl
 	for (int i = 0; i < N; i++)
 	{
 		unique_ptr<CSearchHelper> Helper = Tree.BuildSearchHelper();
-		// cout << "Start" << endl;
 		Tree.Search(Helper.get());
 
 		CTreeNode* NewNode = new CTreeNode(Helper->GetChess());

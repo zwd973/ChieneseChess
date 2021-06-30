@@ -48,14 +48,14 @@ void CChessGame::PlayGame()
 	}
 };
 
-CChessGamePVA::CChessGamePVA() : CChessGame(new CHumanAgent(),new CAIAgent(new CTreeSearchSolver(new CSimpleInferencer(),50000)))
+CChessGamePVA::CChessGamePVA() : CChessGame(new CHumanAgent(),new CAIAgent(new CTreeSearchSolver(new CSimpleInferencer(),100000)))
 {
 
 }
 
 CChessGameAVA::CChessGameAVA() :CChessGame(
-		new CAIAgent(new CAlphaBetaSolver(4)),
-		new CAIAgent(new CTreeSearchSolver(new CSimpleInferencer(), 50000)))
+		new CAIAgent(new CAlphaBetaSolver(3)),
+		new CAIAgent(new CTreeSearchSolver(new CSimpleInferencer(), 500000)))
 {
 
 }
@@ -97,6 +97,7 @@ SAction CChessGameAVA::SelectActionForAgent(CChess* Chess,CAgent* Agent)
 		uniform_real_distribution<float> distribution(0.0f, S);
 		float P = distribution(generator);
 		float Sum = 0;
+		// cout << "p" << endl;
 		for (size_t i = 0; i < Actions.size(); i++)
 		{
 			if (Mask[i])
@@ -122,7 +123,7 @@ SAction CChessGameAVA::SelectActionForAgent(CChess* Chess,CAgent* Agent)
 void CChessGameAVA::PlayGame()
 {
 	int T = 0;
-	while (T < 3)
+	while (T < 1)
 	{
 		T++;
 		Chess = make_unique<CChess>();

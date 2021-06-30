@@ -6,6 +6,5 @@ int main(int argc, char* argv[])
 	CChessGameAVA ChessGame;
 	ChessGame.PlayGame();
 	std::cout << "end" << endl;
-	char ch;
 	return 0;
 }
